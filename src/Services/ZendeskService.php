@@ -18,6 +18,19 @@ class ZendeskService {
         if(!$this->subdomain || !$this->username || !$this->token) {
             throw new InvalidArgumentException('Please set ZENDESK_SUBDOMAIN, ZENDESK_USERNAME and ZENDESK_TOKEN environment variables.');
         }
+        
+    }
+    
+    public function setAuthParameters($subdomain, $username, $token) {
+        $this->subdomain = $subdomain;
+        $this->username = $username;
+        $this->token = $token;
+        if(!$this->subdomain || !$this->username || !$this->token) {
+            throw new InvalidArgumentException('Please set ZENDESK_SUBDOMAIN, ZENDESK_USERNAME and ZENDESK_TOKEN environment variables.');
+        }
+    }
+    
+    public function init() {
         $this->client = new HttpClient($this->subdomain, $this->username);
         $this->client->setAuth('basic', ['username' => $this->username, 'token' => $this->token]);
     }
